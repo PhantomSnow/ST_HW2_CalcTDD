@@ -111,3 +111,38 @@ def power(self, a, b):
 
 7. Rule Violations & Autonomous Decisions:
 None.
+
+### Cycle 4: Power Edge Cases (Zero Base with Negative Exponent)
+
+1. Prompt (verbatim):
+> Please write a single failing test for `power` handling zero base with a negative exponent (e.g., `calc.power(0, -2)`). According to our design decision, zero raised to a negative exponent represents division by zero and must raise a `ValueError`. Do not write any implementation yet.
+
+2. Agent Response:
+> Here is the failing test case for zero base with a negative exponent:
+> ```python
+> def test_power_zero_base_negative_exponent(self):
+>     calc = Calculator()
+>     with self.assertRaises(ValueError):
+>         calc.power(0, -2)
+> ```
+
+3. Failing Test Output:
+`ZeroDivisionError: 0.0 cannot be raised to a negative power`（原生 Python 次方運算拋出 ZeroDivisionError，而非預期的 ValueError；已留存終端機截圖 `screenshot_power_zero_red.png`）。
+
+4. Your Review Comments:
+測試案例確認了 0 的負次方屬於無效除以零運算，斷言拋出 ValueError 符合全專案例外處理的一致性。審查通過並先行 Commit。
+
+5. The Change the Agent Made:
+在 `Calculator.power` 加入底數為 0 且指數小於 0 的條件防禦：
+```python
+def power(self, a, b):
+    if a == 0 and b < 0:
+        raise ValueError("Cannot raise zero to a negative power")
+    return a ** b
+```
+
+6. Any Refactoring:
+邏輯明確，條件覆蓋精確，維持最簡實作。
+
+7. Rule Violations & Autonomous Decisions:
+None.
