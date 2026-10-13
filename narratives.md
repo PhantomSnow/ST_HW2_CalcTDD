@@ -31,3 +31,11 @@
   - 新增測試案例 `test_divide_by_zero`，傳入運算元 `5` 與 `0`，預期捕捉到 `ValueError` 例外。
   - **設計決策 (Design Decision)**：依作業規範在實作前明確定義邊界條件。當除數為 0 時，決定拋出具語意化的 `ValueError("Cannot divide by zero")`，而非讓系統直接噴出 Python 預設的 `ZeroDivisionError`，以符合計算機領域對無效輸入的例外定義。
   - 執行結果：若 `divide` 僅有 `return a / b`，執行 `python -m unittest CalcTest.py` 會拋出 `ZeroDivisionError` 而非預期的 `ValueError`，導致 `assertRaises(ValueError)` 判定失敗（Red）。
+  - **Green**:
+  - 在 `Calculator` 類別中新增 `divide(self, a, b)` 並回傳 `a / b`。
+  - 在 `Calculator.divide` 內加入防禦性條件檢查：
+    ```python
+    if b == 0:
+        raise ValueError("Cannot divide by zero")
+    ```
+  - 執行 `python -m unittest CalcTest.py`，確認 5 項測試全數通過（`OK`）。
