@@ -28,3 +28,6 @@
   - 新增測試案例 `test_divide`，輸入 `5` 與 `2`，預期回傳值為 `2.5`。
   - **設計決策 (Design Decision)**：依作業規範在測試中先敲定回傳型別，本實作選擇回傳浮點數（float），以保留除法的精確小數結果而非整數截斷。
   - 執行 `python -m unittest CalcTest.py` 得到 `AttributeError: 'Calculator' object has no attribute 'divide'`，確認測試在實作前如期失敗。
+  - 新增測試案例 `test_divide_by_zero`，傳入運算元 `5` 與 `0`，預期捕捉到 `ValueError` 例外。
+  - **設計決策 (Design Decision)**：依作業規範在實作前明確定義邊界條件。當除數為 0 時，決定拋出具語意化的 `ValueError("Cannot divide by zero")`，而非讓系統直接噴出 Python 預設的 `ZeroDivisionError`，以符合計算機領域對無效輸入的例外定義。
+  - 執行結果：若 `divide` 僅有 `return a / b`，執行 `python -m unittest CalcTest.py` 會拋出 `ZeroDivisionError` 而非預期的 `ValueError`，導致 `assertRaises(ValueError)` 判定失敗（Red）。
