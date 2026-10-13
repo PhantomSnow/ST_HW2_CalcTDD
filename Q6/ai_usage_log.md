@@ -74,3 +74,40 @@ def modulo(self, a, b):
 
 7. Rule Violations & Autonomous Decisions:
 None.
+
+---
+
+## Power Implementation
+
+### Cycle 3: Basic Power
+
+1. Prompt (verbatim):
+> Please write a single failing test for a new method `power(self, a, b)` in `Calculator` that tests basic positive exponentiation (e.g., 2 ** 3 = 8). Do not write any implementation yet.
+
+2. Agent Response:
+> Here is the failing test case for `power`:
+> ```python
+> def test_power(self):
+>     calc = Calculator()
+>     result = calc.power(2, 3)
+>     self.assertEqual(result, 8)
+> ```
+
+3. Failing Test Output:
+`AttributeError: 'Calculator' object has no attribute 'power'`（實作尚未提供 `power` 方法，測試如期失敗；已留存終端機截圖 `screenshot_power_red.png`）。
+
+4. Your Review Comments:
+測試案例測試了正整數次方運算（2 的 3 次方為 8），斷言明確。審查通過並先行 Commit。
+
+5. The Change the Agent Made:
+在 `Calculator` 類別新增最簡實作：
+```python
+def power(self, a, b):
+    return a ** b
+```
+
+6. Any Refactoring:
+使用 Python 原生次方運算子 `**`，程式碼簡潔，無需重構。
+
+7. Rule Violations & Autonomous Decisions:
+None.
